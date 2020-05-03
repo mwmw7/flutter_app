@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:numberpicker/numberpicker.dart';
 import 'dart:math' as math;
 
 void main() => runApp(MaterialApp(
@@ -20,7 +21,7 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> with TickerProviderStateMixin {
   AnimationController controller;
-
+  int sec =0;
   // bool isPlaying = false;
 
   String get timerString {
@@ -33,7 +34,7 @@ class MyAppState extends State<MyApp> with TickerProviderStateMixin {
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 10),
+      duration: Duration(seconds: 60 * 10),
     );
 
     // ..addStatusListener((status) {
@@ -81,9 +82,26 @@ class MyAppState extends State<MyApp> with TickerProviderStateMixin {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              "Count Down",
+                              "10min/10 workout",
                               style: themeData.textTheme.subhead,
                             ),
+                            Text(
+                              "40s workout / 20s rest"
+                            ),
+//                            NumberPicker.integer(
+//                              initialValue: sec,
+//                              minValue: 0,
+//                              maxValue: 23,
+//                              listViewWidth: 60,
+//                              onChanged: (val){
+//                                setState(() {
+//                                  sec = val;
+//                                  debugPrint(sec.toString());
+//                                });
+//
+//                              },
+//
+//                            ),
                             AnimatedBuilder(
                                 animation: controller,
                                 builder: (BuildContext context, Widget child) {
