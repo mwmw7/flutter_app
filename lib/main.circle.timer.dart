@@ -2,66 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'dart:math' as math;
 
+void main() => runApp(MaterialApp(
+  home: MyApp(),
+  theme: ThemeData(
+    canvasColor: Colors.blueGrey,
+    iconTheme: IconThemeData(
+      color: Colors.white,
+    ),
+    accentColor: Colors.pinkAccent,
+    brightness: Brightness.dark,
+  ),
+));
 
-void main() => runApp(new MyApp());
-
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: "TABATA",
-      theme: new ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: new MyHomePage(),
-    );
-  }
+  MyAppState createState() => MyAppState();
 }
 
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  var _textController = new TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title : new Text("Home Page"),
-      ),
-      body: new ListView(
-        children: <Widget>[
-          new ListTile(
-            title: new TextField(
-              controller: _textController,
-            )
-          ),
-          new ListTile(
-            title: new RaisedButton(
-                child: new Text("Next"),
-                onPressed: (){
-                  var route = new MaterialPageRoute(builder: (BuildContext context) => new NextPage(value: _textController.text));
-                  Navigator.of(context).push(route);
-
-            })
-          )
-        ],
-      )
-    );
-  }
-}
-
-class NextPage extends StatefulWidget {
-  String value;
-  NextPage({Key key, this.value}):  super (key: key);
-  @override
-  _NextPageState createState() => _NextPageState();
-}
-
-class _NextPageState extends State<NextPage> with TickerProviderStateMixin{
+class MyAppState extends State<MyApp> with TickerProviderStateMixin {
   AnimationController controller;
   int sec =0;
   // bool isPlaying = false;
@@ -74,10 +32,9 @@ class _NextPageState extends State<NextPage> with TickerProviderStateMixin{
   @override
   void initState() {
     super.initState();
-    print(widget.value);
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: int.parse(widget.value)),
+      duration: Duration(seconds: 60 * 10),
     );
 
     // ..addStatusListener((status) {
@@ -93,9 +50,6 @@ class _NextPageState extends State<NextPage> with TickerProviderStateMixin{
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
     return Scaffold(
-      appBar: new AppBar(
-        title: new Text("Timer"),
-      ),
       body: Padding(
         padding: EdgeInsets.all(8.0),
         child: Column(
@@ -132,7 +86,7 @@ class _NextPageState extends State<NextPage> with TickerProviderStateMixin{
                               style: themeData.textTheme.subhead,
                             ),
                             Text(
-                                "${widget.value}s workout / 20s rest"
+                              "40s workout / 20s rest"
                             ),
 //                            NumberPicker.integer(
 //                              initialValue: sec,
@@ -236,5 +190,3 @@ class TimerPainter extends CustomPainter {
         backgroundColor != old.backgroundColor;
   }
 }
-
-
