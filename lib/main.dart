@@ -25,6 +25,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var _textController = new TextEditingController();
+  var _textController2 = new TextEditingController();
+  var _textController3 = new TextEditingController();
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +44,20 @@ class _MyHomePageState extends State<MyHomePage> {
             )
           ),
           new ListTile(
+              title: new TextField(
+                controller: _textController2,
+              )
+          ),
+          new ListTile(
+              title: new TextField(
+                controller: _textController3,
+              )
+          ),
+          new ListTile(
             title: new RaisedButton(
                 child: new Text("Next"),
                 onPressed: (){
-                  var route = new MaterialPageRoute(builder: (BuildContext context) => new NextPage(value: _textController.text));
+                  var route = new MaterialPageRoute(builder: (BuildContext context) => new NextPage(value: _textController.text, rest: _textController2.text, round: _textController3.text));
                   Navigator.of(context).push(route);
 
             })
@@ -56,13 +70,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
 class NextPage extends StatefulWidget {
   String value;
-  NextPage({Key key, this.value}):  super (key: key);
+  String rest;
+  String round;
+
+  bool isPlaying = false;
+
+  bool isWork = true;
+
+  NextPage({Key key, this.value, this.rest, this.round}):  super (key: key);
   @override
   _NextPageState createState() => _NextPageState();
 }
 
 class _NextPageState extends State<NextPage> with TickerProviderStateMixin{
-  AnimationController controller;
+  AnimationController controller;  //for workout
+  AnimationController controller2; //for rest
+
   int sec =0;
   // bool isPlaying = false;
 
@@ -74,24 +97,39 @@ class _NextPageState extends State<NextPage> with TickerProviderStateMixin{
   @override
   void initState() {
     super.initState();
+
     print(widget.value);
+    print(widget.rest);
+
+
     controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: int.parse(widget.value)),
     );
 
-    // ..addStatusListener((status) {
-    //     if (controller.status == AnimationStatus.dismissed) {
-    //       setState(() => isPlaying = false);
-    //     }
+    controller2 = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: int.parse(widget.rest)),
+    );
 
-    //     print(status);
-    //   })
+    controller.addStatusListener((status) {
+         if (controller.status == AnimationStatus.dismissed) {
+           setState(() => widget.isWork = false);
+         }
+         print("work : " + status.toString());
+       });
+    controller2.addStatusListener((status) {
+      if (controller2.status == AnimationStatus.dismissed) {
+        setState(() => widget.isWork = true);
+      }
+      print("rest : " + status.toString());
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
+
     return Scaffold(
       appBar: new AppBar(
         title: new Text("Timer"),
@@ -101,6 +139,7 @@ class _NextPageState extends State<NextPage> with TickerProviderStateMixin{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
+            widget.isWork?
             Expanded(
               child: Align(
                 alignment: FractionalOffset.center,
@@ -128,11 +167,11 @@ class _NextPageState extends State<NextPage> with TickerProviderStateMixin{
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              "10min/10 workout",
+                              "${widget.round} rounds",
                               style: themeData.textTheme.subhead,
                             ),
                             Text(
-                                "${widget.value}s workout / 20s rest"
+                                "${widget.value}s workout / ${widget.rest} s rest"
                             ),
 //                            NumberPicker.integer(
 //                              initialValue: sec,
@@ -163,7 +202,71 @@ class _NextPageState extends State<NextPage> with TickerProviderStateMixin{
                   ),
                 ),
               ),
+            ):
+            Expanded(
+              child: Align(
+                alignment: FractionalOffset.center,
+                child: AspectRatio(
+                  aspectRatio: 1.0,
+                  child: Stack(
+                    children: <Widget>[
+                      Positioned.fill(
+                        child: AnimatedBuilder(
+                          animation: controller2,
+                          builder: (BuildContext context, Widget child) {
+                            return CustomPaint(
+                                painter: TimerPainter(
+                                  animation: controller2,
+                                  backgroundColor: Colors.greenAccent,
+                                  color: themeData.indicatorColor,
+                                ));
+                          },
+                        ),
+                      ),
+                      Align(
+                        alignment: FractionalOffset.center,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              "10min/10 workout",
+                              style: themeData.textTheme.subhead,
+                            ),
+                            Text(
+                                "${widget.value}s workout / ${widget.rest} s rest"
+                            ),
+//                            NumberPicker.integer(
+//                              initialValue: sec,
+//                              minValue: 0,
+//                              maxValue: 23,
+//                              listViewWidth: 60,
+//                              onChanged: (val){
+//                                setState(() {
+//                                  sec = val;
+//                                  debugPrint(sec.toString());
+//                                });
+//
+//                              },
+//
+//                            ),
+                            AnimatedBuilder(
+                                animation: controller2,
+                                builder: (BuildContext context, Widget child) {
+                                  return Text(
+                                    timerString,
+                                    style: themeData.textTheme.display4,
+                                  );
+                                }),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
+            widget.isWork?
             Container(
               margin: EdgeInsets.all(8.0),
               child: Row(
@@ -183,7 +286,7 @@ class _NextPageState extends State<NextPage> with TickerProviderStateMixin{
                       },
                     ),
                     onPressed: () {
-                      // setState(() => isPlaying = !isPlaying);
+                       setState(() => widget.isPlaying = !widget.isPlaying);
 
                       if (controller.isAnimating) {
                         controller.stop(canceled: true);
@@ -192,6 +295,40 @@ class _NextPageState extends State<NextPage> with TickerProviderStateMixin{
                             from: controller.value == 0.0
                                 ? 1.0
                                 : controller.value);
+                      }
+                    },
+                  )
+                ],
+              ),
+            ):
+            Container(
+              margin: EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  FloatingActionButton(
+                    child: AnimatedBuilder(
+                      animation: controller2,
+                      builder: (BuildContext context, Widget child) {
+                        return Icon(controller2.isAnimating
+                            ? Icons.pause
+                            : Icons.play_arrow);
+
+                        // Icon(isPlaying
+                        // ? Icons.pause
+                        // : Icons.play_arrow);
+                      },
+                    ),
+                    onPressed: () {
+                      setState(() => widget.isPlaying = !widget.isPlaying);
+
+                      if (controller2.isAnimating) {
+                        controller2.stop(canceled: true);
+                      } else {
+                        controller2.reverse(
+                            from: controller2.value == 0.0
+                                ? 1.0
+                                : controller2.value);
                       }
                     },
                   )
