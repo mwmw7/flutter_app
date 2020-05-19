@@ -9,9 +9,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: "TABATA",
-      theme: new ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData.dark(),
       home: new MyHomePage(),
     );
   }
@@ -33,28 +31,42 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: new AppBar(
           title: new Text("Home Page"),
         ),
-        body: Padding(
+        body: SafeArea(
+            child: Padding(
           padding: const EdgeInsets.fromLTRB(0.0, 100.0, 0.0, 0.0),
           child: new ListView(
             children: <Widget>[
               Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                      alignment: Alignment.center,
+                      child: Text("TABATA",
+                          style: TextStyle(
+                              decoration: TextDecoration.none,
+                              fontSize: 75.0)))),
+              Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: new ListTile(
-                    title: new TextField(
+                    title: new TextFormField(
                   controller: _textController,
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red),
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.greenAccent),
-                          borderRadius: BorderRadius.all(Radius.circular(15))
-                        ),
-                        hintText:"00:10",
-                        filled:true,
-                        fillColor: Colors.grey[200]
+                  decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.repeat),
+                      labelText: "Rounds",
+                      hintText: "4",
+                      labelStyle:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                      suffixText: "rounds",
+                      suffixStyle: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red),
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
                       ),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.greenAccent),
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                      filled: true,
+                      fillColor: Colors.black12),
                 )),
               ),
               Padding(
@@ -62,19 +74,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: new ListTile(
                     title: new TextField(
                   controller: _textController2,
-                      decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.red),
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.greenAccent),
-                              borderRadius: BorderRadius.all(Radius.circular(15))
-                          ),
-                          hintText:"00:10",
-                          filled:true,
-                          fillColor: Colors.grey[200]
+                  decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.access_alarm),
+                      labelText: "Work",
+                      labelStyle:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                      suffixText: "seconds",
+                      suffixStyle: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red),
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
                       ),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.greenAccent),
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                      hintText: "30",
+                      filled: true,
+                      fillColor: Colors.black12),
                 )),
               ),
               Padding(
@@ -82,42 +99,61 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: new ListTile(
                     title: new TextField(
                   controller: _textController3,
-                      decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.red),
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.greenAccent),
-                              borderRadius: BorderRadius.all(Radius.circular(15))
-                          ),
-                          hintText:"00:10",
-                          filled:true,
-                          fillColor: Colors.grey[200]
+                  decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.access_alarm),
+                      hintText: "10",
+                      labelText: "Rest",
+                      labelStyle:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                      suffixText: "seconds",
+                      suffixStyle: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red),
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
                       ),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.greenAccent),
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                      filled: true,
+                      fillColor: Colors.black12),
                 )),
               ),
-              new ListTile(
-                  title: new RaisedButton(
-                      child: new Text("Next"),
-                      onPressed: () {
-                        var route = new MaterialPageRoute(
-                            builder: (BuildContext context) => new NextPage(
-                                value: _textController.text,
-                                rest: _textController2.text,
-                                round: _textController3.text));
-                        Navigator.of(context).push(route);
-                      }))
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: new ListTile(
+                    title: new RaisedButton(
+                        child: new Text("Next",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20)),
+                        color: Colors.blue,
+                        splashColor: Colors.blueAccent,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0)),
+                        padding: const EdgeInsets.all(20.0),
+                        onPressed: () {
+
+                            var route = new MaterialPageRoute(
+                                builder: (BuildContext context) => new NextPage(
+                                    value: _textController.text,
+                                    rest: _textController2.text,
+                                    round: _textController3.text));
+                            Navigator.of(context).push(route);
+
+                        })),
+              )
             ],
           ),
-        ));
+        )));
   }
 }
 
 class NextPage extends StatefulWidget {
-  String value;
-  String rest;
-  String round;
+  String value = "4";
+  String rest = "30";
+  String round = "10";
 
   bool isPlaying = false;
 
