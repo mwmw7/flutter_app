@@ -33,32 +33,83 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: new AppBar(
           title: new Text("Home Page"),
         ),
-        body: new ListView(
-          children: <Widget>[
-            new ListTile(
-                title: new TextField(
-              controller: _textController,
-            )),
-            new ListTile(
-                title: new TextField(
-              controller: _textController2,
-            )),
-            new ListTile(
-                title: new TextField(
-              controller: _textController3,
-            )),
-            new ListTile(
-                title: new RaisedButton(
-                    child: new Text("Next"),
-                    onPressed: () {
-                      var route = new MaterialPageRoute(
-                          builder: (BuildContext context) => new NextPage(
-                              value: _textController.text,
-                              rest: _textController2.text,
-                              round: _textController3.text));
-                      Navigator.of(context).push(route);
-                    }))
-          ],
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(0.0, 100.0, 0.0, 0.0),
+          child: new ListView(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: new ListTile(
+                    title: new TextField(
+                  controller: _textController,
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red),
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.greenAccent),
+                          borderRadius: BorderRadius.all(Radius.circular(15))
+                        ),
+                        hintText:"00:10",
+                        filled:true,
+                        fillColor: Colors.grey[200]
+                      ),
+                )),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: new ListTile(
+                    title: new TextField(
+                  controller: _textController2,
+                      decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red),
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.greenAccent),
+                              borderRadius: BorderRadius.all(Radius.circular(15))
+                          ),
+                          hintText:"00:10",
+                          filled:true,
+                          fillColor: Colors.grey[200]
+                      ),
+                )),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: new ListTile(
+                    title: new TextField(
+                  controller: _textController3,
+                      decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red),
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.greenAccent),
+                              borderRadius: BorderRadius.all(Radius.circular(15))
+                          ),
+                          hintText:"00:10",
+                          filled:true,
+                          fillColor: Colors.grey[200]
+                      ),
+                )),
+              ),
+              new ListTile(
+                  title: new RaisedButton(
+                      child: new Text("Next"),
+                      onPressed: () {
+                        var route = new MaterialPageRoute(
+                            builder: (BuildContext context) => new NextPage(
+                                value: _textController.text,
+                                rest: _textController2.text,
+                                round: _textController3.text));
+                        Navigator.of(context).push(route);
+                      }))
+            ],
+          ),
         ));
   }
 }
