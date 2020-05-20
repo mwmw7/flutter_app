@@ -27,133 +27,153 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final formkey = new GlobalKey<FormState>();
+    var rounds;
+    var work_sec;
+    var rest_sec;
+
+    @override
+    void dispose(){
+      super.dispose();
+    }
     return new Scaffold(
         appBar: new AppBar(
           title: new Text("Home Page"),
         ),
         body: SafeArea(
             child: Padding(
-          padding: const EdgeInsets.fromLTRB(0.0, 100.0, 0.0, 0.0),
-          child: new ListView(
-            children: <Widget>[
-              Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Container(
-                      alignment: Alignment.center,
-                      child: Text("TABATA",
-                          style: TextStyle(
-                              decoration: TextDecoration.none,
-                              fontSize: 75.0)))),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: new ListTile(
-                    title: new TextFormField(
-                  controller: _textController,
-                  decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.repeat),
-                      labelText: "Rounds",
-                      hintText: "4",
-                      labelStyle:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                      suffixText: "rounds",
-                      suffixStyle: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.red),
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.greenAccent),
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                      filled: true,
-                      fillColor: Colors.black12),
-                )),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: new ListTile(
-                    title: new TextField(
-                  controller: _textController2,
-                  decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.access_alarm),
-                      labelText: "Work",
-                      labelStyle:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                      suffixText: "seconds",
-                      suffixStyle: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.red),
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.greenAccent),
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                      hintText: "30",
-                      filled: true,
-                      fillColor: Colors.black12),
-                )),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: new ListTile(
-                    title: new TextField(
-                  controller: _textController3,
-                  decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.access_alarm),
-                      hintText: "10",
-                      labelText: "Rest",
-                      labelStyle:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                      suffixText: "seconds",
-                      suffixStyle: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.red),
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.greenAccent),
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                      filled: true,
-                      fillColor: Colors.black12),
-                )),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: new ListTile(
-                    title: new RaisedButton(
-                        child: new Text("Next",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20)),
-                        color: Colors.blue,
-                        splashColor: Colors.blueAccent,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0)),
+              padding: const EdgeInsets.fromLTRB(0.0, 100.0, 0.0, 0.0),
+              child: new Form(
+                  key: formkey,
+                  child: new Column(
+                    children: <Widget>[
+                      Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Container(
+                              alignment: Alignment.center,
+                              child: Text("TABATA",
+                                  style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      fontSize: 75.0)))),
+                      Padding(
                         padding: const EdgeInsets.all(20.0),
-                        onPressed: () {
+                        child: new ListTile(
+                            title: new TextFormField(
+                              validator: (val) => val.isEmpty ? "Invalid round": null,
+                              onSaved: (val)=> rounds = val,
+                              controller: _textController,
+                              decoration: InputDecoration(
+                                  prefixIcon: Icon(Icons.repeat),
+                                  labelText: "Rounds",
+                                  hintText: "4",
+                                  labelStyle:
+                                  TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                  suffixText: "rounds",
+                                  suffixStyle: TextStyle(
+                                      color: Colors.white, fontWeight: FontWeight.bold),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.red),
+                                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.greenAccent),
+                                      borderRadius: BorderRadius.all(Radius.circular(15))),
+                                  filled: true,
+                                  fillColor: Colors.black12),
+                            )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: new ListTile(
+                            title: new TextFormField(
+                              validator: (val) => val.isEmpty ? "Invalid work seconds": null,
+                              onSaved: (val)=> work_sec = val,
+                              controller: _textController2,
+                              decoration: InputDecoration(
+                                  prefixIcon: Icon(Icons.access_alarm),
+                                  labelText: "Work",
+                                  labelStyle:
+                                  TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                  suffixText: "seconds",
+                                  suffixStyle: TextStyle(
+                                      color: Colors.white, fontWeight: FontWeight.bold),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.red),
+                                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.greenAccent),
+                                      borderRadius: BorderRadius.all(Radius.circular(15))),
+                                  hintText: "30",
+                                  filled: true,
+                                  fillColor: Colors.black12),
+                            )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: new ListTile(
+                            title: new TextFormField(
+                              validator: (val) => val.isEmpty ? "Invalid rest seconds": null,
+                              onSaved: (val)=> rest_sec = val,
+                              controller: _textController3,
+                              decoration: InputDecoration(
+                                  prefixIcon: Icon(Icons.access_alarm),
+                                  hintText: "10",
+                                  labelText: "Rest",
+                                  labelStyle:
+                                  TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                  suffixText: "seconds",
+                                  suffixStyle: TextStyle(
+                                      color: Colors.white, fontWeight: FontWeight.bold),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.red),
+                                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.greenAccent),
+                                      borderRadius: BorderRadius.all(Radius.circular(15))),
+                                  filled: true,
+                                  fillColor: Colors.black12),
+                            )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: new ListTile(
+                            title: new RaisedButton(
+                                child: new Text("Next",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20)),
+                                color: Colors.blue,
+                                splashColor: Colors.blueAccent,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0)),
+                                padding: const EdgeInsets.all(20.0),
+                                onPressed: () {
+                                  final form = formkey.currentState;
+                                  if(form.validate()){
+                                    form.save();
+                                    var route = new MaterialPageRoute(
+                                        builder: (BuildContext context) => new NextPage(
+                                            value: work_sec,
+                                            rest: rest_sec,
+                                            round: rounds));
+                                    Navigator.of(context).push(route);
+                                  }
 
-                            var route = new MaterialPageRoute(
-                                builder: (BuildContext context) => new NextPage(
-                                    value: _textController.text,
-                                    rest: _textController2.text,
-                                    round: _textController3.text));
-                            Navigator.of(context).push(route);
-
-                        })),
-              )
-            ],
-          ),
-        )));
+                                })),
+                      )
+                    ],
+                  )),
+            )));
   }
 }
 
 class NextPage extends StatefulWidget {
-  String value = "4";
-  String rest = "30";
-  String round = "10";
+  String value;
+  String rest ;
+  String round;
 
   bool isPlaying = false;
 
@@ -168,13 +188,17 @@ class NextPage extends StatefulWidget {
 class _NextPageState extends State<NextPage> with TickerProviderStateMixin {
   AnimationController controller; //for workout
   AnimationController controller2; //for rest
-
+  int round_int;
   int sec = 0;
 
   // bool isPlaying = false;
 
   String get timerString {
     Duration duration = controller.duration * controller.value;
+    return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+  }
+  String get timerStringForRest {
+    Duration duration = controller2.duration * controller2.value;
     return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
   }
 
@@ -184,6 +208,8 @@ class _NextPageState extends State<NextPage> with TickerProviderStateMixin {
 
     print(widget.value);
     print(widget.rest);
+
+    round_int = int.parse(widget.round);
 
     controller = AnimationController(
       vsync: this,
@@ -206,6 +232,11 @@ class _NextPageState extends State<NextPage> with TickerProviderStateMixin {
     controller2.addStatusListener((status) {
       if (controller2.status == AnimationStatus.dismissed) {
         setState(() => widget.isWork = true);
+        if(round_int > 1){
+          round_int--;
+          controller.reverse(
+              from: controller.value == 0.0 ? 1.0 : controller.value);
+        }
       }
       print("rest : " + status.toString());
     });
@@ -226,204 +257,204 @@ class _NextPageState extends State<NextPage> with TickerProviderStateMixin {
           children: <Widget>[
             widget.isWork
                 ? Expanded(
-                    child: Align(
-                      alignment: FractionalOffset.center,
-                      child: AspectRatio(
-                        aspectRatio: 1.0,
-                        child: Stack(
+              child: Align(
+                alignment: FractionalOffset.center,
+                child: AspectRatio(
+                  aspectRatio: 1.0,
+                  child: Stack(
+                    children: <Widget>[
+                      Positioned.fill(
+                        child: AnimatedBuilder(
+                          animation: controller,
+                          builder: (BuildContext context, Widget child) {
+                            return CustomPaint(
+                                painter: TimerPainter(
+                                  animation: controller,
+                                  backgroundColor: Colors.white,
+                                  color: themeData.indicatorColor,
+                                ));
+                          },
+                        ),
+                      ),
+                      Align(
+                        alignment: FractionalOffset.center,
+                        child: Column(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            Positioned.fill(
-                              child: AnimatedBuilder(
+                            Text(
+                              "${round_int} rounds",
+                              style: themeData.textTheme.subhead,
+                            ),
+                            Text(
+                                "${widget.value}s workout / ${widget.rest} s rest"),
+//                            NumberPicker.integer(
+//                              initialValue: sec,
+//                              minValue: 0,
+//                              maxValue: 23,
+//                              listViewWidth: 60,
+//                              onChanged: (val){
+//                                setState(() {
+//                                  sec = val;
+//                                  debugPrint(sec.toString());
+//                                });
+//
+//                              },
+//
+//                            ),
+                            AnimatedBuilder(
                                 animation: controller,
-                                builder: (BuildContext context, Widget child) {
-                                  return CustomPaint(
-                                      painter: TimerPainter(
-                                    animation: controller,
-                                    backgroundColor: Colors.white,
-                                    color: themeData.indicatorColor,
-                                  ));
-                                },
-                              ),
-                            ),
-                            Align(
-                              alignment: FractionalOffset.center,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Text(
-                                    "${widget.round} rounds",
-                                    style: themeData.textTheme.subhead,
-                                  ),
-                                  Text(
-                                      "${widget.value}s workout / ${widget.rest} s rest"),
-//                            NumberPicker.integer(
-//                              initialValue: sec,
-//                              minValue: 0,
-//                              maxValue: 23,
-//                              listViewWidth: 60,
-//                              onChanged: (val){
-//                                setState(() {
-//                                  sec = val;
-//                                  debugPrint(sec.toString());
-//                                });
-//
-//                              },
-//
-//                            ),
-                                  AnimatedBuilder(
-                                      animation: controller,
-                                      builder:
-                                          (BuildContext context, Widget child) {
-                                        return Text(
-                                          timerString,
-                                          style: themeData.textTheme.display4,
-                                        );
-                                      }),
-                                ],
-                              ),
-                            ),
+                                builder:
+                                    (BuildContext context, Widget child) {
+                                  return Text(
+                                    timerString,
+                                    style: themeData.textTheme.display4,
+                                  );
+                                }),
                           ],
                         ),
                       ),
-                    ),
-                  )
-                : Expanded(
-                    child: Align(
-                      alignment: FractionalOffset.center,
-                      child: AspectRatio(
-                        aspectRatio: 1.0,
-                        child: Stack(
-                          children: <Widget>[
-                            Positioned.fill(
-                              child: AnimatedBuilder(
-                                animation: controller2,
-                                builder: (BuildContext context, Widget child) {
-                                  return CustomPaint(
-                                      painter: TimerPainter(
-                                    animation: controller2,
-                                    backgroundColor: Colors.white,
-                                    color: Colors.greenAccent,
-                                  ));
-                                },
-                              ),
-                            ),
-                            Align(
-                              alignment: FractionalOffset.center,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Text(
-                                    "10min/10 workout",
-                                    style: themeData.textTheme.subhead,
-                                  ),
-                                  Text(
-                                      "${widget.value}s workout / ${widget.rest} s rest"),
-//                            NumberPicker.integer(
-//                              initialValue: sec,
-//                              minValue: 0,
-//                              maxValue: 23,
-//                              listViewWidth: 60,
-//                              onChanged: (val){
-//                                setState(() {
-//                                  sec = val;
-//                                  debugPrint(sec.toString());
-//                                });
-//
-//                              },
-//
-//                            ),
-                                  AnimatedBuilder(
-                                      animation: controller2,
-                                      builder:
-                                          (BuildContext context, Widget child) {
-                                        return Text(
-                                          timerString,
-                                          style: themeData.textTheme.display4,
-                                        );
-                                      }),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    ],
                   ),
+                ),
+              ),
+            )
+                : Expanded(
+              child: Align(
+                alignment: FractionalOffset.center,
+                child: AspectRatio(
+                  aspectRatio: 1.0,
+                  child: Stack(
+                    children: <Widget>[
+                      Positioned.fill(
+                        child: AnimatedBuilder(
+                          animation: controller2,
+                          builder: (BuildContext context, Widget child) {
+                            return CustomPaint(
+                                painter: TimerPainter(
+                                  animation: controller2,
+                                  backgroundColor: Colors.white,
+                                  color: Colors.lightBlueAccent,
+                                ));
+                          },
+                        ),
+                      ),
+                      Align(
+                        alignment: FractionalOffset.center,
+                        child: Column(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              "Rest",
+                              style: themeData.textTheme.subhead,
+                            ),
+                            Text(
+                                "${widget.value}s workout / ${widget.rest} s rest"),
+//                            NumberPicker.integer(
+//                              initialValue: sec,
+//                              minValue: 0,
+//                              maxValue: 23,
+//                              listViewWidth: 60,
+//                              onChanged: (val){
+//                                setState(() {
+//                                  sec = val;
+//                                  debugPrint(sec.toString());
+//                                });
+//
+//                              },
+//
+//                            ),
+                            AnimatedBuilder(
+                                animation: controller2,
+                                builder:
+                                    (BuildContext context, Widget child) {
+                                  return Text(
+                                    timerStringForRest,
+                                    style: themeData.textTheme.display4,
+                                  );
+                                }),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
             widget.isWork
                 ? Container(
-                    margin: EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        FloatingActionButton(
-                          child: AnimatedBuilder(
-                            animation: controller,
-                            builder: (BuildContext context, Widget child) {
-                              return Icon(controller.isAnimating
-                                  ? Icons.pause
-                                  : Icons.play_arrow);
+              margin: EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  FloatingActionButton(
+                    child: AnimatedBuilder(
+                      animation: controller,
+                      builder: (BuildContext context, Widget child) {
+                        return Icon(controller.isAnimating
+                            ? Icons.pause
+                            : Icons.play_arrow);
 
-                              // Icon(isPlaying
-                              // ? Icons.pause
-                              // : Icons.play_arrow);
-                            },
-                          ),
-                          onPressed: () {
-                            setState(
-                                () => widget.isPlaying = !widget.isPlaying);
-
-                            if (controller.isAnimating) {
-                              controller.stop(canceled: true);
-                            } else {
-                              controller.reverse(
-                                  from: controller.value == 0.0
-                                      ? 1.0
-                                      : controller.value);
-                            }
-                          },
-                        )
-                      ],
+                        // Icon(isPlaying
+                        // ? Icons.pause
+                        // : Icons.play_arrow);
+                      },
                     ),
+                    onPressed: () {
+                      setState(
+                              () => widget.isPlaying = !widget.isPlaying);
+
+                      if (controller.isAnimating) {
+                        controller.stop(canceled: true);
+                      } else {
+                        controller.reverse(
+                            from: controller.value == 0.0
+                                ? 1.0
+                                : controller.value);
+                      }
+                    },
                   )
+                ],
+              ),
+            )
                 : Container(
-                    margin: EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        FloatingActionButton(
-                          child: AnimatedBuilder(
-                            animation: controller2,
-                            builder: (BuildContext context, Widget child) {
-                              return Icon(controller2.isAnimating
-                                  ? Icons.pause
-                                  : Icons.play_arrow);
+              margin: EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  FloatingActionButton(
+                    child: AnimatedBuilder(
+                      animation: controller2,
+                      builder: (BuildContext context, Widget child) {
+                        return Icon(controller2.isAnimating
+                            ? Icons.pause
+                            : Icons.play_arrow);
 
-                              // Icon(isPlaying
-                              // ? Icons.pause
-                              // : Icons.play_arrow);
-                            },
-                          ),
-                          onPressed: () {
-                            setState(
-                                () => widget.isPlaying = !widget.isPlaying);
-
-                            if (controller2.isAnimating) {
-                              controller2.stop(canceled: true);
-                            } else {
-                              controller2.reverse(
-                                  from: controller2.value == 0.0
-                                      ? 1.0
-                                      : controller2.value);
-                            }
-                          },
-                        )
-                      ],
+                        // Icon(isPlaying
+                        // ? Icons.pause
+                        // : Icons.play_arrow);
+                      },
                     ),
+                    onPressed: () {
+                      setState(
+                              () => widget.isPlaying = !widget.isPlaying);
+
+                      if (controller2.isAnimating) {
+                        controller2.stop(canceled: true);
+                      } else {
+                        controller2.reverse(
+                            from: controller2.value == 0.0
+                                ? 1.0
+                                : controller2.value);
+                      }
+                    },
                   )
+                ],
+              ),
+            )
           ],
         ),
       ),
