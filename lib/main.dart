@@ -40,9 +40,9 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: new AppBar(
           title: new Text("Home Page"),
         ),
-        body: SafeArea(
+        body: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(0.0, 100.0, 0.0, 0.0),
+              padding: const EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 0.0),
               child: new Form(
                   key: formkey,
                   child: new Column(
@@ -284,11 +284,11 @@ class _NextPageState extends State<NextPage> with TickerProviderStateMixin {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              "${round_int} rounds",
+                              "${round_int} / ${widget.round} rounds",
                               style: themeData.textTheme.subhead,
                             ),
                             Text(
-                                "${widget.value}s workout / ${widget.rest} s rest"),
+                                "${widget.value}s workout / ${widget.rest}s rest"),
 //                            NumberPicker.integer(
 //                              initialValue: sec,
 //                              minValue: 0,
@@ -476,7 +476,7 @@ class TimerPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
       ..color = backgroundColor
-      ..strokeWidth = 5.0
+      ..strokeWidth = 10.0
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
 
