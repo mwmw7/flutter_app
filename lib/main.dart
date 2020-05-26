@@ -4,6 +4,20 @@ import 'dart:math' as math;
 
 void main() => runApp(new MyApp());
 
+class WorkTime {
+  int id;
+  int seconds;
+
+  WorkTime(this.id, this.seconds);
+
+  static List<WorkTime> getWorkTimes() {
+    return <WorkTime>[
+        WorkTime(1, 5),
+        WorkTime(2, 10),
+    ];
+  }
+
+}
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
