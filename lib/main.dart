@@ -190,16 +190,54 @@ class _NextPageState extends State<NextPage> with TickerProviderStateMixin {
   AnimationController controller2; //for rest
   int round_int;
   int sec = 0;
+  int beforeWorkSeconds = 0;
+  int beforeRestSeconds = 0;
 
   // bool isPlaying = false;
 
   String get timerString {
-    Duration duration = controller.duration * controller.value;
-    return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+    print("Duration : " + controller.duration.toString());
+    print("Value : " + controller.value.toString());
+    print("inMinutes : " + controller.duration.inMinutes.toString());
+    print("inSeconds : " + (controller.duration.inSeconds % 60).toString());
+
+    Duration duration = controller.duration * (controller.value);
+
+    var timerString;
+    var worksSeconds;
+    if(controller.value == 0.0){
+      timerString = '${duration.inMinutes}:${(controller.duration.inSeconds).toString().padLeft(2, '0')}';
+    }else{
+      if(beforeWorkSeconds < duration.inSeconds % 60 + 1){
+        worksSeconds = beforeWorkSeconds;
+      }else{
+        worksSeconds = duration.inSeconds % 60 + 1;
+      }
+      print("worksSeconds : " + worksSeconds.toString());
+      timerString = '${duration.inMinutes}:${worksSeconds.toString().padLeft(2, '0')}';
+    }
+    beforeWorkSeconds = controller.duration.inSeconds;
+    return timerString;
   }
   String get timerStringForRest {
-    Duration duration = controller2.duration * controller2.value;
-    return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+    var restSeconds;
+
+    Duration duration = controller2.duration * (controller2.value);
+    var timerString;
+    if(controller2.value == 0.0){
+      timerString = '${duration.inMinutes}:${(controller2.duration.inSeconds).toString().padLeft(2, '0')}';
+    }else{
+      if(beforeRestSeconds < duration.inSeconds % 60 + 1){
+        restSeconds = beforeRestSeconds;
+      }else{
+        restSeconds = duration.inSeconds % 60 + 1;
+      }
+      print("restSeconds : " + restSeconds.toString());
+      timerString = '${duration.inMinutes}:${restSeconds.toString().padLeft(2, '0')}';
+    }
+
+    beforeRestSeconds = controller2.duration.inSeconds;
+    return timerString;
   }
 
   @override
@@ -285,7 +323,10 @@ class _NextPageState extends State<NextPage> with TickerProviderStateMixin {
                           children: <Widget>[
                             Text(
                               "${round_int} / ${widget.round} rounds",
-                              style: themeData.textTheme.subhead,
+                            style: TextStyle(
+                                decoration: TextDecoration.none,
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold),
                             ),
                             Text(
                                 "${widget.value}s workout / ${widget.rest}s rest"),
@@ -349,7 +390,10 @@ class _NextPageState extends State<NextPage> with TickerProviderStateMixin {
                           children: <Widget>[
                             Text(
                               "Rest",
-                              style: themeData.textTheme.subhead,
+                          style: TextStyle(
+                              decoration: TextDecoration.none,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold),
                             ),
                             Text(
                                 "${widget.value}s workout / ${widget.rest} s rest"),
@@ -477,7 +521,7 @@ class TimerPainter extends CustomPainter {
     Paint paint = Paint()
       ..color = backgroundColor
       ..strokeWidth = 10.0
-      ..strokeCap = StrokeCap.round
+      ..strokeCap = StrokeCap.butt
       ..style = PaintingStyle.stroke;
 
     canvas.drawCircle(size.center(Offset.zero), size.width / 2.0, paint);
