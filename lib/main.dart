@@ -12,12 +12,12 @@ class WorkTime {
 
   static List<WorkTime> getWorkTimes() {
     return <WorkTime>[
-        WorkTime(1, 5),
-        WorkTime(2, 10),
+      WorkTime(1, 5),
+      WorkTime(2, 10),
     ];
   }
-
 }
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -47,146 +47,155 @@ class _MyHomePageState extends State<MyHomePage> {
     var rest_sec;
 
     @override
-    void dispose(){
+    void dispose() {
       super.dispose();
     }
+
     return new Scaffold(
         appBar: new AppBar(
           title: new Text("Home Page"),
         ),
         body: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 0.0),
-              child: new Form(
-                  key: formkey,
-                  child: new Column(
-                    children: <Widget>[
-                      Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Container(
-                              alignment: Alignment.center,
-                              child: Text("TABATA",
-                                  style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      fontSize: 75.0)))),
-                      Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: new ListTile(
-                            title: new TextFormField(
-                              validator: (val) => val.isEmpty ? "Invalid round": null,
-                              onSaved: (val)=> rounds = val,
-                              controller: _textController,
-                              decoration: InputDecoration(
-                                  prefixIcon: Icon(Icons.repeat),
-                                  labelText: "Rounds",
-                                  hintText: "4",
-                                  labelStyle:
-                                  TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                                  suffixText: "rounds",
-                                  suffixStyle: TextStyle(
-                                      color: Colors.white, fontWeight: FontWeight.bold),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.red),
-                                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.greenAccent),
-                                      borderRadius: BorderRadius.all(Radius.circular(15))),
-                                  filled: true,
-                                  fillColor: Colors.black12),
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: new ListTile(
-                            title: new TextFormField(
-                              validator: (val) => val.isEmpty ? "Invalid work seconds": null,
-                              onSaved: (val)=> work_sec = val,
-                              controller: _textController2,
-                              decoration: InputDecoration(
-                                  prefixIcon: Icon(Icons.access_alarm),
-                                  labelText: "Work",
-                                  labelStyle:
-                                  TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                                  suffixText: "seconds",
-                                  suffixStyle: TextStyle(
-                                      color: Colors.white, fontWeight: FontWeight.bold),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.red),
-                                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.greenAccent),
-                                      borderRadius: BorderRadius.all(Radius.circular(15))),
-                                  hintText: "30",
-                                  filled: true,
-                                  fillColor: Colors.black12),
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: new ListTile(
-                            title: new TextFormField(
-                              validator: (val) => val.isEmpty ? "Invalid rest seconds": null,
-                              onSaved: (val)=> rest_sec = val,
-                              controller: _textController3,
-                              decoration: InputDecoration(
-                                  prefixIcon: Icon(Icons.access_alarm),
-                                  hintText: "10",
-                                  labelText: "Rest",
-                                  labelStyle:
-                                  TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                                  suffixText: "seconds",
-                                  suffixStyle: TextStyle(
-                                      color: Colors.white, fontWeight: FontWeight.bold),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.red),
-                                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.greenAccent),
-                                      borderRadius: BorderRadius.all(Radius.circular(15))),
-                                  filled: true,
-                                  fillColor: Colors.black12),
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: new ListTile(
-                            title: new RaisedButton(
-                                child: new Text("Next",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20)),
-                                color: Colors.blue,
-                                splashColor: Colors.blueAccent,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20.0)),
-                                padding: const EdgeInsets.all(20.0),
-                                onPressed: () {
-                                  final form = formkey.currentState;
-                                  if(form.validate()){
-                                    form.save();
-                                    var route = new MaterialPageRoute(
-                                        builder: (BuildContext context) => new NextPage(
+          padding: const EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 0.0),
+          child: new Form(
+              key: formkey,
+              child: new Column(
+                children: <Widget>[
+                  Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Container(
+                          alignment: Alignment.center,
+                          child: Text("TABATA",
+                              style: TextStyle(
+                                  decoration: TextDecoration.none,
+                                  fontSize: 75.0)))),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: new ListTile(
+                        title: new TextFormField(
+                      validator: (val) => val.isEmpty ? "Invalid round" : null,
+                      onSaved: (val) => rounds = val,
+                      controller: _textController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.repeat),
+                          labelText: "Rounds",
+                          hintText: "4",
+                          labelStyle: TextStyle(
+                              fontSize: 25, fontWeight: FontWeight.bold),
+                          suffixText: "rounds",
+                          suffixStyle: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red),
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.greenAccent),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                          filled: true,
+                          fillColor: Colors.black12),
+                    )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: new ListTile(
+                        title: new TextFormField(
+                      validator: (val) =>
+                          val.isEmpty ? "Invalid work seconds" : null,
+                      onSaved: (val) => work_sec = val,
+                      controller: _textController2,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.access_alarm),
+                          labelText: "Work",
+                          labelStyle: TextStyle(
+                              fontSize: 25, fontWeight: FontWeight.bold),
+                          suffixText: "seconds",
+                          suffixStyle: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red),
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.greenAccent),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                          hintText: "30",
+                          filled: true,
+                          fillColor: Colors.black12),
+                    )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: new ListTile(
+                        title: new TextFormField(
+                      validator: (val) =>
+                          val.isEmpty ? "Invalid rest seconds" : null,
+                      onSaved: (val) => rest_sec = val,
+                      controller: _textController3,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.access_alarm),
+                          hintText: "10",
+                          labelText: "Rest",
+                          labelStyle: TextStyle(
+                              fontSize: 25, fontWeight: FontWeight.bold),
+                          suffixText: "seconds",
+                          suffixStyle: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red),
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.greenAccent),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                          filled: true,
+                          fillColor: Colors.black12),
+                    )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: new ListTile(
+                        title: new RaisedButton(
+                            child: new Text("Next",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20)),
+                            color: Colors.blue,
+                            splashColor: Colors.blueAccent,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0)),
+                            padding: const EdgeInsets.all(20.0),
+                            onPressed: () {
+                              final form = formkey.currentState;
+                              if (form.validate()) {
+                                form.save();
+                                var route = new MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        new NextPage(
                                             value: work_sec,
                                             rest: rest_sec,
                                             round: rounds));
-                                    Navigator.of(context).push(route);
-                                  }
-
-                                })),
-                      )
-                    ],
-                  )),
-            )));
+                                Navigator.of(context).push(route);
+                              }
+                            })),
+                  )
+                ],
+              )),
+        )));
   }
 }
 
 class NextPage extends StatefulWidget {
   String value;
-  String rest ;
+  String rest;
   String round;
 
   bool isPlaying = false;
@@ -219,35 +228,40 @@ class _NextPageState extends State<NextPage> with TickerProviderStateMixin {
 
     var timerString;
     var worksSeconds;
-    if(controller.value == 0.0){
-      timerString = '${duration.inMinutes}:${(controller.duration.inSeconds).toString().padLeft(2, '0')}';
-    }else{
-      if(beforeWorkSeconds < duration.inSeconds % 60 + 1){
+    if (controller.value == 0.0) {
+      timerString =
+          '${duration.inMinutes}:${(controller.duration.inSeconds).toString().padLeft(2, '0')}';
+    } else {
+      if (beforeWorkSeconds < duration.inSeconds % 60 + 1) {
         worksSeconds = beforeWorkSeconds;
-      }else{
+      } else {
         worksSeconds = duration.inSeconds % 60 + 1;
       }
       print("worksSeconds : " + worksSeconds.toString());
-      timerString = '${duration.inMinutes}:${worksSeconds.toString().padLeft(2, '0')}';
+      timerString =
+          '${duration.inMinutes}:${worksSeconds.toString().padLeft(2, '0')}';
     }
     beforeWorkSeconds = controller.duration.inSeconds;
     return timerString;
   }
+
   String get timerStringForRest {
     var restSeconds;
 
     Duration duration = controller2.duration * (controller2.value);
     var timerString;
-    if(controller2.value == 0.0){
-      timerString = '${duration.inMinutes}:${(controller2.duration.inSeconds).toString().padLeft(2, '0')}';
-    }else{
-      if(beforeRestSeconds < duration.inSeconds % 60 + 1){
+    if (controller2.value == 0.0) {
+      timerString =
+          '${duration.inMinutes}:${(controller2.duration.inSeconds).toString().padLeft(2, '0')}';
+    } else {
+      if (beforeRestSeconds < duration.inSeconds % 60 + 1) {
         restSeconds = beforeRestSeconds;
-      }else{
+      } else {
         restSeconds = duration.inSeconds % 60 + 1;
       }
       print("restSeconds : " + restSeconds.toString());
-      timerString = '${duration.inMinutes}:${restSeconds.toString().padLeft(2, '0')}';
+      timerString =
+          '${duration.inMinutes}:${restSeconds.toString().padLeft(2, '0')}';
     }
 
     beforeRestSeconds = controller2.duration.inSeconds;
@@ -284,7 +298,7 @@ class _NextPageState extends State<NextPage> with TickerProviderStateMixin {
     controller2.addStatusListener((status) {
       if (controller2.status == AnimationStatus.dismissed) {
         setState(() => widget.isWork = true);
-        if(round_int > 1){
+        if (round_int > 1) {
           round_int--;
           controller.reverse(
               from: controller.value == 0.0 ? 1.0 : controller.value);
@@ -309,108 +323,41 @@ class _NextPageState extends State<NextPage> with TickerProviderStateMixin {
           children: <Widget>[
             widget.isWork
                 ? Expanded(
-              child: Align(
-                alignment: FractionalOffset.center,
-                child: AspectRatio(
-                  aspectRatio: 1.0,
-                  child: Stack(
-                    children: <Widget>[
-                      Positioned.fill(
-                        child: AnimatedBuilder(
-                          animation: controller,
-                          builder: (BuildContext context, Widget child) {
-                            return CustomPaint(
-                                painter: TimerPainter(
-                                  animation: controller,
-                                  backgroundColor: Colors.white,
-                                  color: themeData.indicatorColor,
-                                ));
-                          },
-                        ),
-                      ),
-                      Align(
-                        alignment: FractionalOffset.center,
-                        child: Column(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                    child: Align(
+                      alignment: FractionalOffset.center,
+                      child: AspectRatio(
+                        aspectRatio: 1.0,
+                        child: Stack(
                           children: <Widget>[
-                            Text(
-                              "${round_int} / ${widget.round} rounds",
-                            style: TextStyle(
-                                decoration: TextDecoration.none,
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                                "${widget.value}s workout / ${widget.rest}s rest"),
-//                            NumberPicker.integer(
-//                              initialValue: sec,
-//                              minValue: 0,
-//                              maxValue: 23,
-//                              listViewWidth: 60,
-//                              onChanged: (val){
-//                                setState(() {
-//                                  sec = val;
-//                                  debugPrint(sec.toString());
-//                                });
-//
-//                              },
-//
-//                            ),
-                            AnimatedBuilder(
+                            Positioned.fill(
+                              child: AnimatedBuilder(
                                 animation: controller,
-                                builder:
-                                    (BuildContext context, Widget child) {
-                                  return Text(
-                                    timerString,
-                                    style: themeData.textTheme.display4,
-                                  );
-                                }),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            )
-                : Expanded(
-              child: Align(
-                alignment: FractionalOffset.center,
-                child: AspectRatio(
-                  aspectRatio: 1.0,
-                  child: Stack(
-                    children: <Widget>[
-                      Positioned.fill(
-                        child: AnimatedBuilder(
-                          animation: controller2,
-                          builder: (BuildContext context, Widget child) {
-                            return CustomPaint(
-                                painter: TimerPainter(
-                                  animation: controller2,
-                                  backgroundColor: Colors.white,
-                                  color: Colors.lightBlueAccent,
-                                ));
-                          },
-                        ),
-                      ),
-                      Align(
-                        alignment: FractionalOffset.center,
-                        child: Column(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              "Rest",
-                          style: TextStyle(
-                              decoration: TextDecoration.none,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold),
+                                builder: (BuildContext context, Widget child) {
+                                  return CustomPaint(
+                                      painter: TimerPainter(
+                                    animation: controller,
+                                    backgroundColor: Colors.white,
+                                    color: themeData.indicatorColor,
+                                  ));
+                                },
+                              ),
                             ),
-                            Text(
-                                "${widget.value}s workout / ${widget.rest} s rest"),
+                            Align(
+                              alignment: FractionalOffset.center,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    "${round_int} / ${widget.round} rounds",
+                                    style: TextStyle(
+                                        decoration: TextDecoration.none,
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                      "${widget.value}s workout / ${widget.rest}s rest"),
 //                            NumberPicker.integer(
 //                              initialValue: sec,
 //                              minValue: 0,
@@ -425,94 +372,161 @@ class _NextPageState extends State<NextPage> with TickerProviderStateMixin {
 //                              },
 //
 //                            ),
-                            AnimatedBuilder(
-                                animation: controller2,
-                                builder:
-                                    (BuildContext context, Widget child) {
-                                  return Text(
-                                    timerStringForRest,
-                                    style: themeData.textTheme.display4,
-                                  );
-                                }),
+                                  AnimatedBuilder(
+                                      animation: controller,
+                                      builder:
+                                          (BuildContext context, Widget child) {
+                                        return Text(
+                                          timerString,
+                                          style: themeData.textTheme.display4,
+                                        );
+                                      }),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
-                    ],
+                    ),
+                  )
+                : Expanded(
+                    child: Align(
+                      alignment: FractionalOffset.center,
+                      child: AspectRatio(
+                        aspectRatio: 1.0,
+                        child: Stack(
+                          children: <Widget>[
+                            Positioned.fill(
+                              child: AnimatedBuilder(
+                                animation: controller2,
+                                builder: (BuildContext context, Widget child) {
+                                  return CustomPaint(
+                                      painter: TimerPainter(
+                                    animation: controller2,
+                                    backgroundColor: Colors.white,
+                                    color: Colors.lightBlueAccent,
+                                  ));
+                                },
+                              ),
+                            ),
+                            Align(
+                              alignment: FractionalOffset.center,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    "Rest",
+                                    style: TextStyle(
+                                        decoration: TextDecoration.none,
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                      "${widget.value}s workout / ${widget.rest} s rest"),
+//                            NumberPicker.integer(
+//                              initialValue: sec,
+//                              minValue: 0,
+//                              maxValue: 23,
+//                              listViewWidth: 60,
+//                              onChanged: (val){
+//                                setState(() {
+//                                  sec = val;
+//                                  debugPrint(sec.toString());
+//                                });
+//
+//                              },
+//
+//                            ),
+                                  AnimatedBuilder(
+                                      animation: controller2,
+                                      builder:
+                                          (BuildContext context, Widget child) {
+                                        return Text(
+                                          timerStringForRest,
+                                          style: themeData.textTheme.display4,
+                                        );
+                                      }),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
             widget.isWork
                 ? Container(
-              margin: EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  FloatingActionButton(
-                    child: AnimatedBuilder(
-                      animation: controller,
-                      builder: (BuildContext context, Widget child) {
-                        return Icon(controller.isAnimating
-                            ? Icons.pause
-                            : Icons.play_arrow);
+                    margin: EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        FloatingActionButton(
+                          child: AnimatedBuilder(
+                            animation: controller,
+                            builder: (BuildContext context, Widget child) {
+                              return Icon(controller.isAnimating
+                                  ? Icons.pause
+                                  : Icons.play_arrow);
 
-                        // Icon(isPlaying
-                        // ? Icons.pause
-                        // : Icons.play_arrow);
-                      },
+                              // Icon(isPlaying
+                              // ? Icons.pause
+                              // : Icons.play_arrow);
+                            },
+                          ),
+                          onPressed: () {
+                            setState(
+                                () => widget.isPlaying = !widget.isPlaying);
+
+                            if (controller.isAnimating) {
+                              controller.stop(canceled: true);
+                            } else {
+                              controller.reverse(
+                                  from: controller.value == 0.0
+                                      ? 1.0
+                                      : controller.value);
+                            }
+                          },
+                        )
+                      ],
                     ),
-                    onPressed: () {
-                      setState(
-                              () => widget.isPlaying = !widget.isPlaying);
-
-                      if (controller.isAnimating) {
-                        controller.stop(canceled: true);
-                      } else {
-                        controller.reverse(
-                            from: controller.value == 0.0
-                                ? 1.0
-                                : controller.value);
-                      }
-                    },
                   )
-                ],
-              ),
-            )
                 : Container(
-              margin: EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  FloatingActionButton(
-                    child: AnimatedBuilder(
-                      animation: controller2,
-                      builder: (BuildContext context, Widget child) {
-                        return Icon(controller2.isAnimating
-                            ? Icons.pause
-                            : Icons.play_arrow);
+                    margin: EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        FloatingActionButton(
+                          child: AnimatedBuilder(
+                            animation: controller2,
+                            builder: (BuildContext context, Widget child) {
+                              return Icon(controller2.isAnimating
+                                  ? Icons.pause
+                                  : Icons.play_arrow);
 
-                        // Icon(isPlaying
-                        // ? Icons.pause
-                        // : Icons.play_arrow);
-                      },
+                              // Icon(isPlaying
+                              // ? Icons.pause
+                              // : Icons.play_arrow);
+                            },
+                          ),
+                          onPressed: () {
+                            setState(
+                                () => widget.isPlaying = !widget.isPlaying);
+
+                            if (controller2.isAnimating) {
+                              controller2.stop(canceled: true);
+                            } else {
+                              controller2.reverse(
+                                  from: controller2.value == 0.0
+                                      ? 1.0
+                                      : controller2.value);
+                            }
+                          },
+                        )
+                      ],
                     ),
-                    onPressed: () {
-                      setState(
-                              () => widget.isPlaying = !widget.isPlaying);
-
-                      if (controller2.isAnimating) {
-                        controller2.stop(canceled: true);
-                      } else {
-                        controller2.reverse(
-                            from: controller2.value == 0.0
-                                ? 1.0
-                                : controller2.value);
-                      }
-                    },
                   )
-                ],
-              ),
-            )
           ],
         ),
       ),
