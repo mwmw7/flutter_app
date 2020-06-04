@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'dart:math' as math;
+import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 void main() => runApp(new MyApp());
 
@@ -211,10 +213,14 @@ class NextPage extends StatefulWidget {
 class _NextPageState extends State<NextPage> with TickerProviderStateMixin {
   AnimationController controller; //for workout
   AnimationController controller2; //for rest
+  AudioCache audioCache = AudioCache();
+  AudioPlayer advancedPlayer = AudioPlayer();
   int round_int;
   int sec = 0;
   int beforeWorkSeconds = 0;
   int beforeRestSeconds = 0;
+  int currentSecound = 9999;
+  bool firstStart = true;
 
   // bool isPlaying = false;
 
@@ -226,6 +232,19 @@ class _NextPageState extends State<NextPage> with TickerProviderStateMixin {
 
     Duration duration = controller.duration * (controller.value);
 
+    if (currentSecound != duration.inSeconds % 60 + 1) {
+      currentSecound = duration.inSeconds % 60 + 1;
+      if(currentSecound < 4 ) {
+        print("-------------------------");
+        print(currentSecound);
+        if(firstStart) {
+          firstStart = false;
+        }else{
+          audioCache.play('beep.wav');
+
+        }
+      }
+    }
     var timerString;
     var worksSeconds;
     if (controller.value == 0.0) {
